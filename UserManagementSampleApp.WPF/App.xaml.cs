@@ -22,6 +22,7 @@ namespace UserManagementSampleApp.WPF
         public App()
         {
             Services = ConfigureServices();
+            SomeData.SeedData();
         }
         private IServiceProvider ConfigureServices()
         {

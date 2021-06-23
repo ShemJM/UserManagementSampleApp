@@ -1,0 +1,11 @@
+﻿@page
+@model UserManagementSampleApp.RazorPages.Pages.UserDetailsModel
+@{
+}
+@if (Model.ViewModel.User != null)
+{
+    <p>@Model.ViewModel.User.Forename</p>
+    <p>@Model.ViewModel.User.Surname</p>
+    <p>@Model.ViewModel.User.Email</p>
+    <p>@Model.ViewModel.User.MobileNumber</p>
+}

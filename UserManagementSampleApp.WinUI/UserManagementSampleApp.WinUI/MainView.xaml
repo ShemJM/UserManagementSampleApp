@@ -1,0 +1,55 @@
+﻿<UserControl
+    x:Class="UserManagementSampleApp.WinUI.MainView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:UserControl="using:UserManagementSampleApp.WinUI.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="using:UserManagementSampleApp.WinUI.Helpers"
+    xmlns:local="using:UserManagementSampleApp.WinUI"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vms="using:UserManagementSampleApp.ViewModels"
+    d:DataContext="{d:DesignInstance Type=local:MainViewModel}"
+    mc:Ignorable="d">
+    <UserControl.DataContext>
+        <local:MainViewModel x:Name="ViewModel" />
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <DataTemplate x:Key="UserView">
+            <UserControl:UsersView />
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid>
+        <ContentControl Content="{x:Bind ViewModel.MainVM}" />
+        <Grid Visibility="{x:Bind helpers:Converters.ConvertNotNullToVisibility(ViewModel.ModalVM), Mode=OneWay}">
+            <Grid.Background>
+                <SolidColorBrush Opacity="0.5" Color="White" />
+            </Grid.Background>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="2*" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Border
+                Grid.Row="1"
+                Grid.Column="1"
+                BorderBrush="White"
+                BorderThickness="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <ContentControl Background="White" Content="{x:Bind ViewModel.ModalVM}" />
+                    <Grid Grid.Row="1" Height="20">
+                        <Button Command="{x:Bind ViewModel.CloseModalCommand}" Content="Close" />
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

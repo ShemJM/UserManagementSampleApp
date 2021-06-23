@@ -1,0 +1,14 @@
+﻿@page
+@model UserManagementSampleApp.RazorPages.Pages.UsersViewModel
+@{
+}
+
+@if (Model.ViewModel.Users != null)
+@foreach (var item in Model.ViewModel.Users)
+{
+<div style="float:left">
+    <p>@item.Forename</p>
+    <p>@item.Surname</p>
+    <a class="nav-link text-dark" asp-area="" asp-page="/UserDetails" asp-route-id="@item.Id">Details</a>
+</div>
+}

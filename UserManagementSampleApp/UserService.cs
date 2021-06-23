@@ -19,25 +19,37 @@ namespace UserManagementSampleApp
         public async Task CreateUser(CreateUserModel createUser)
         {
             await Task.Delay(1000);
+
+            SomeData.Users.Add(new UserDetailsModel() { Email = createUser.Email, Surname = createUser.Surname, Forename = createUser.Forename, MobileNumber = createUser.MobileNumber });
         }
 
         public async Task<UserDetailsModel> GetUserDetails(int id)
         {
             await Task.Delay(1000);
 
-            return new UserDetailsModel() { Id = id, Forename = "Test", Surname = "User", Email = "Test@Users.com", MobileNumber = "419" };
+            return SomeData.Users.Find(u => u.Id == id);
         }
 
         public async Task<List<UserSummaryModel>> GetUsersSummariesAsync()
         {
             await Task.Delay(1000);
 
-            return new List<UserSummaryModel>()
+            return SomeData.Users.Select(u => new UserSummaryModel() { Forename = u.Forename, Id = u.Id, Surname = u.Surname }).ToList();
+        }
+    }
+
+    public static class SomeData
+    {
+        public static List<UserDetailsModel> Users { get; set; }
+
+        public static void SeedData()
+        {
+            Users = new List<UserDetailsModel>()
             {
-                new UserSummaryModel(){ Forename = "Bob", Surname = "Jones", Id = 1},
-                new UserSummaryModel(){ Forename = "Tim", Surname = "Smith", Id = 2},
-                new UserSummaryModel(){ Forename = "Cathy", Surname = "Burton", Id = 3},
-                new UserSummaryModel(){ Forename = "Jane", Surname = "Doe", Id = 4}
+                new UserDetailsModel() { Email = "Bob@Users", Forename = "Bob", Surname = "Jones", Id = 1 },
+                new UserDetailsModel() { Email = "Tim@Users", Forename = "Tim", Surname = "Smith", Id = 2 },
+                new UserDetailsModel() { Email = "Cathy@Users", Forename = "Cathy", Surname = "Burton", Id = 3 },
+                new UserDetailsModel() { Email = "Jane@Users", Forename = "Jane", Surname = "Doe", Id = 4 }
             };
         }
     }
